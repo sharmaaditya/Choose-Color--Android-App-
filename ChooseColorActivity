@@ -1,0 +1,66 @@
+package com.example.colors;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.view.Menu;
+import android.view.View;
+import android.widget.FrameLayout;
+
+public class ChooseColorActivity extends Activity{
+	private FrameLayout f;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_choose_color);
+		f = (FrameLayout)findViewById(R.id.ColorBox);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.choose_color, menu);
+		return true;
+	}
+	
+	public void color_selection(View view)
+	{
+
+		Intent intent = new Intent(getBaseContext(), ColorSelectionActivity.class);
+		startActivityForResult(intent, 1);
+	}
+	
+	@Override
+	protected void onActivityResult(int reqCode, int resCode, Intent data) {
+		        super.onActivityResult(reqCode, resCode, data);
+		        if(data.getExtras().containsKey("selected_color")){
+		        	String x = data.getStringExtra("selected_color");
+		        	if(x.equals("Red"))
+		    		{	
+		    			f.setBackgroundColor(Color.RED);
+		    		}
+		        	else if(x.equals("Blue"))
+		    		{	
+		    			f.setBackgroundColor(Color.BLUE);
+		    		}
+		        	else if(x.equals("Green"))
+		    		{	
+		    			f.setBackgroundColor(Color.GREEN);
+		    		}
+		        	else if(x.equals("Brown"))
+		    		{
+		    			f.setBackgroundColor(Color.rgb(165, 42, 42));
+		    		}
+		        	else if(x.equals("Yellow"))
+		    		{
+		    			f.setBackgroundColor(Color.YELLOW);
+		    		}
+		    			
+		        }
+		    }
+	@Override
+	public void onBackPressed() {
+   	          finish();
+	}
+
+}
